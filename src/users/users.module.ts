@@ -3,14 +3,14 @@ import {UsersController} from "./users.controller";
 import {UsersService} from "./users.service";
 import {JwtModule} from "@nestjs/jwt";
 import {TypeOrmModule} from "@nestjs/typeorm";
-import {User} from "./users.entity";
+import {Account} from "./users.entity";
 
 @Module({
     controllers: [UsersController],
     providers: [UsersService],
     imports: [
         forwardRef(()=> UsersModule),
-        TypeOrmModule.forFeature([User]),
+        TypeOrmModule.forFeature([Account]),
         JwtModule.register({
             secret: process.env.PRIVATE_KEY || 'SECRET',
             signOptions: {

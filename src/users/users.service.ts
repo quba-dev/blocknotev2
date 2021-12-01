@@ -4,17 +4,17 @@ import * as bcrypt from 'bcryptjs';
 import {CreateUserDto} from "./dto/create-user.dto";
 import {InjectRepository} from "@nestjs/typeorm";
 import {Repository} from "typeorm";
-import {User} from "./users.entity";
+import {Account} from "./users.entity";
 import {LoginUserDto} from "./dto/login-user.dto";
 
 @Injectable()
 export class UsersService {
-    constructor(@InjectRepository(User)
-                private readonly userRepository: Repository<User>,
+    constructor(@InjectRepository(Account)
+                private readonly userRepository: Repository<Account>,
                 private jwtService: JwtService) {}
 
     async createUser(dto: CreateUserDto){
-        const user = new User()
+        const user = new Account()
         await this.userRepository.create(dto)
         Object.assign(user, dto)
         return await this.userRepository.save(user)
@@ -37,7 +37,7 @@ export class UsersService {
         return 'Registration is done.'
     }
 
-    private async generateToken(user: User) {
+    private async generateToken(user: Account) {
         const payload = {email: user.email, id: user.id}
         return {
             token: this.jwtService.sign(payload)
