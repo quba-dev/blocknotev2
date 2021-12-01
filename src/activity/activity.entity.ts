@@ -39,8 +39,4 @@ export class Activity {
   @ManyToOne(type=>Location,location=>location.activities,{eager:true})
   @JoinColumn()
   location:Location
-
-
-
-
 }

@@ -10,8 +10,6 @@ export class Location{
   @Column({unique:true})
   address:string
 
-  @Column({default:true})
-  isAvailable: boolean;
 
   @OneToMany(type=>Activity,activity=>activity.location)
   @JoinColumn()

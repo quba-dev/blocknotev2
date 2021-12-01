@@ -14,11 +14,10 @@ export class ActivityService {
   }
 
   async createActivity(currentLocation: Location, dto: CreateActivityDto) {
+    const loc = ({...dto})
+    console.log(loc)
     const activity = new Activity()
-    activity.location = currentLocation
-    // currentLocation.activities.push(activity)
-    Object.assign(activity, currentLocation, dto)
-
+    Object.assign(activity, dto)
     return await this.activityRepository.save(activity)
   }
 
