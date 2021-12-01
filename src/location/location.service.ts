@@ -55,19 +55,22 @@ export class LocationService {
       throw new HttpException('there is no such location', HttpStatus.NOT_FOUND)
     }
     const currentActivity= locationById.activities
-    // let obj = currentActivity.find( o => o.start_date)
+
+    let b = []
     for (let i of currentActivity){
-      console.log((i.start_date).toDateString())
-      console.log((i.end_date).toDateString())
-      console.log((i.name))
+      b.push(i.id)
+      b.push((i.day).toDateString())
+      b.push((i.name))
     }
+    console.log(b)
+
 
     return currentActivity
 
 
   }
 
-  async findLocationByTime(id: number, start_date: string, end_date: string){
+  async findLocationByTime(id: number, day: string){
     const location = await this.locationService.findOne(id)
 
     console.log(location)

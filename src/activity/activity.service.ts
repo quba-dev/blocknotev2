@@ -16,8 +16,8 @@ export class ActivityService {
   }
 
   async createActivity(@Body('dto') currentLocation: Location, dto: CreateActivityDto) {
-    const {location, start_date, end_date} = dto
-    await this.locationService.findLocationByTime(location, start_date, end_date)
+    const {location, day} = dto
+    await this.locationService.findLocationByTime(location, day)
     const activity = new Activity()
     Object.assign(activity, dto)
     return await this.activityRepository.save(activity)

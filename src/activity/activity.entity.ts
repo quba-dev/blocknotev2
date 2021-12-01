@@ -17,7 +17,7 @@ export class Activity {
   id: number
 
   @Column({type:'timestamp',default:()=>'CURRENT_TIMESTAMP'})
-  start_date: Date
+  day: Date
 
   @Column({type:'timestamp',default:()=>'CURRENT_TIMESTAMP'})
   updatedAt: Date
@@ -27,8 +27,6 @@ export class Activity {
     this.updatedAt= new Date()
   }
 
-  @Column({type:'timestamp',default:()=>'CURRENT_TIMESTAMP'})
-  end_date:Date
 
   @Column({unique:true})
   name:string
