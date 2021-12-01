@@ -1,21 +1,23 @@
-import { HttpException, HttpStatus, Injectable } from '@nestjs/common';
+import {Body, HttpException, HttpStatus, Injectable} from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 import { Activity } from './activity.entity';
 import { Repository } from 'typeorm';
 import { CreateActivityDto } from './dto/create-activity.dto';
 import { Location } from '../location/location.entity';
-import any = jasmine.any;
+import {LocationService} from "../location/location.service";
 
 @Injectable()
 export class ActivityService {
   constructor(
     @InjectRepository(Activity)
-    private readonly activityRepository: Repository<Activity>) {
+    private readonly activityRepository: Repository<Activity>,
+    private locationService: LocationService,
+    ) {
   }
 
-  async createActivity(currentLocation: Location, dto: CreateActivityDto) {
-    const loc = ({...dto})
-    console.log(loc)
+  async createActivity(@Body('dto') currentLocation: Location, dto: CreateActivityDto) {
+    const {location, start_date, end_date} = dto
+    await this.locationService.findLocationByTime(location, start_date, end_date)
     const activity = new Activity()
     Object.assign(activity, dto)
     return await this.activityRepository.save(activity)

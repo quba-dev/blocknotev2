@@ -58,4 +58,9 @@ export class LocationService {
 
 
   }
+
+  async findLocationByTime(location: number, start_date: string, end_date: string){
+    console.log('Hello motherfucker')
+  }
+
 }
